@@ -7,7 +7,7 @@
 ### Docker-образ
 
 ```text
-ghcr.io/theoldsailor521/subpage:latest
+ghcr.io/theoldsailor521/subscription-page:latest
 ```
 
 Образ собирается из этого репозитория и включает backend и production-сборку нашего
@@ -20,7 +20,7 @@ GitHub Actions публикует `latest` при push в `main`, а также 
 тег SHA или digest вместо `latest`.
 
 При первой публикации GitHub создаёт пакет приватным. Для загрузки без авторизации
-в [настройках пакета](https://github.com/users/TheOldSailor521/packages/container/subpage/settings)
+в [настройках пакета](https://github.com/users/TheOldSailor521/packages/container/subscription-page/settings)
 нужно один раз выбрать **Change visibility → Public**. Это отдельная настройка
 от публичности репозитория. См. [документацию GitHub](https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility).
 
@@ -31,7 +31,7 @@ GitHub Actions публикует `latest` при push в `main`, а также 
 ```yaml
 services:
   remnawave-subscription-page:
-    image: ghcr.io/theoldsailor521/subpage:latest
+    image: ghcr.io/theoldsailor521/subscription-page:latest
 ```
 
 Сохраните текущие переменные окружения, порты, сети и настройки reverse proxy.

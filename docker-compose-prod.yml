@@ -1,6 +1,6 @@
 services:
   remnawave-subscription-page:
-    image: ghcr.io/theoldsailor521/subpage:latest
+    image: ghcr.io/theoldsailor521/subscription-page:latest
     container_name: remnawave-subscription-page
     hostname: remnawave-subscription-page
     restart: always
