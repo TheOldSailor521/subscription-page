@@ -1,9 +1,10 @@
-import { IconArrowsUpDown, IconCalendar, IconCheck, IconUserScan, IconX } from '@tabler/icons-react'
 import { Box, Group, SimpleGrid, Stack, Text, ThemeIcon } from '@mantine/core'
+import { IconArrowsUpDown, IconCalendar, IconCheck, IconUserScan, IconX } from '@tabler/icons-react'
+
+import { useTranslation } from '@shared/hooks'
+import { formatDate } from '@shared/utils/config-parser'
 
 import { useSubscription } from '@entities/subscription-info-store'
-import { formatDate } from '@shared/utils/config-parser'
-import { useTranslation } from '@shared/hooks'
 
 import classes from './subscription-info-cards.module.css'
 
@@ -35,24 +36,17 @@ const CardItem = ({ icon, label, value, color }: CardItemProps) => {
                     className={iconColorClasses[color]}
                     color={color}
                     radius="md"
-                    size={36}
+                    size={32}
                     style={{ flexShrink: 0 }}
                     variant="light"
                 >
                     {icon}
                 </ThemeIcon>
                 <Stack gap={2} style={{ minWidth: 0, flex: 1 }}>
-                    <Text
-                        c="dimmed"
-                        className={classes.label}
-                        fw={500}
-                        lh={1}
-                        size="xs"
-                        tt="uppercase"
-                    >
+                    <Text c="dimmed" className={classes.label} fw={500} lh={1} size="xs">
                         {label}
                     </Text>
-                    <Text c="white" className={classes.value} fw={600} size="sm">
+                    <Text c="var(--sp-text)" className={classes.value} fw={600} size="md">
                         {value}
                     </Text>
                 </Stack>
@@ -80,31 +74,31 @@ export const SubscriptionInfoCardsWidget = ({ isMobile: _ }: IProps) => {
             : `${user.trafficUsed} / ${user.trafficLimit}`
 
     return (
-        <SimpleGrid cols={{ base: 1, xs: 1, sm: 2 }} spacing="xs" verticalSpacing="xs">
+        <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }} spacing={12} verticalSpacing={12}>
             <CardItem
-                color="blue"
-                icon={<IconUserScan size={18} />}
+                color="violet"
+                icon={<IconUserScan size={17} />}
                 label={t(baseTranslations.name)}
                 value={user.username}
             />
 
             <CardItem
                 color={isActive ? 'green' : 'red'}
-                icon={isActive ? <IconCheck size={18} /> : <IconX size={18} />}
+                icon={isActive ? <IconCheck size={17} /> : <IconX size={17} />}
                 label={t(baseTranslations.status)}
                 value={statusText}
             />
 
             <CardItem
-                color="orange"
-                icon={<IconCalendar size={18} />}
+                color="violet"
+                icon={<IconCalendar size={17} />}
                 label={t(baseTranslations.expires)}
                 value={formatDate(user.expiresAt, currentLang, baseTranslations)}
             />
 
             <CardItem
-                color="cyan"
-                icon={<IconArrowsUpDown size={18} />}
+                color="violet"
+                icon={<IconArrowsUpDown size={17} />}
                 label={t(baseTranslations.bandwidth)}
                 value={bandwidthValue}
             />

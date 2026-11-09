@@ -1,7 +1,7 @@
 import { Box, Group, Stack, Text } from '@mantine/core'
 
-import { getColorGradient, getLocalizedText } from '@shared/utils/config-parser'
 import { ThemeIconShared } from '@shared/ui'
+import { getColorGradient, getLocalizedText } from '@shared/utils/config-parser'
 
 import { IBlockRendererProps } from '../renderer-block.interface'
 import classes from './minimal-block.module.css'
@@ -29,7 +29,7 @@ export const MinimalBlockRenderer = ({
                                 svgIconKey={block.svgIconKey}
                             />
                             <Text
-                                c="white"
+                                c="var(--sp-text)"
                                 dangerouslySetInnerHTML={{
                                     __html: getLocalizedText(block.title, currentLang)
                                 }}

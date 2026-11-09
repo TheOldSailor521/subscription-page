@@ -1,9 +1,4 @@
 import {
-    TSubscriptionPageAppConfig,
-    TSubscriptionPageButtonConfig,
-    TSubscriptionPagePlatformKey
-} from '@remnawave/subscription-page-types'
-import {
     Box,
     Button,
     ButtonVariant,
@@ -14,18 +9,24 @@ import {
     Title,
     UnstyledButton
 } from '@mantine/core'
-import { notifications } from '@mantine/notifications'
 import { useClipboard } from '@mantine/hooks'
-import { useState } from 'react'
+import { notifications } from '@mantine/notifications'
+import {
+    TSubscriptionPageAppConfig,
+    TSubscriptionPageButtonConfig,
+    TSubscriptionPagePlatformKey
+} from '@remnawave/subscription-page-types'
 import clsx from 'clsx'
+import { useState } from 'react'
 
-import { constructSubscriptionUrl } from '@shared/utils/construct-subscription-url'
-import { useSubscription } from '@entities/subscription-info-store'
-import { getIconFromLibrary } from '@shared/utils/config-parser'
-import { TemplateEngine } from '@shared/utils/template-engine'
-import { useAppConfig } from '@entities/app-config-store'
-import { vibrate } from '@shared/utils/vibrate'
 import { useTranslation } from '@shared/hooks'
+import { getIconFromLibrary } from '@shared/utils/config-parser'
+import { constructSubscriptionUrl } from '@shared/utils/construct-subscription-url'
+import { TemplateEngine } from '@shared/utils/template-engine'
+import { vibrate } from '@shared/utils/vibrate'
+
+import { useAppConfig } from '@entities/app-config-store'
+import { useSubscription } from '@entities/subscription-info-store'
 
 import { IBlockRendererProps } from './components/blocks/renderer-block.interface'
 import classes from './installation-guide.module.css'
@@ -99,7 +100,7 @@ export const InstallationGuideConnector = (props: IProps) => {
                 notifications.show({
                     title: t(baseTranslations.linkCopied),
                     message: t(baseTranslations.linkCopiedToClipboard),
-                    color: 'cyan'
+                    color: 'violet'
                 })
                 break
             }
@@ -151,15 +152,23 @@ export const InstallationGuideConnector = (props: IProps) => {
     const getIcon = (iconKey: string) => getIconFromLibrary(iconKey, svgLibrary)
 
     return (
-        <Card p={{ base: 'sm', xs: 'md', sm: 'lg', md: 'xl' }} radius="lg">
+        <Card
+            className={classes.guide}
+            p={{ base: 'sm', xs: 'md', sm: 'lg', md: 'xl' }}
+            radius="lg"
+        >
             <Stack gap="md">
                 <Group gap="sm" justify="space-between">
-                    <Title c="white" fw={600} order={4}>
+                    <Title className={classes.sectionTitle} c="var(--sp-text)" fw={600} order={2}>
                         {t(baseTranslations.installationGuideHeader)}
                     </Title>
 
                     {availablePlatforms.length > 1 && (
                         <NativeSelect
+                            label={currentLang === 'ru' ? 'Устройство' : 'Device'}
+                            aria-label={
+                                currentLang === 'ru' ? 'Выбрать платформу' : 'Choose platform'
+                            }
                             data={availablePlatforms.map((opt) => ({
                                 value: opt.value,
                                 label: opt.label
@@ -209,6 +218,7 @@ export const InstallationGuideConnector = (props: IProps) => {
                                             app.featured && classes.appButtonFeatured
                                         )}
                                         key={app.name}
+                                        aria-pressed={isActive}
                                         onClick={() => {
                                             vibrate('toggle')
                                             setSelectedAppIndex(index)

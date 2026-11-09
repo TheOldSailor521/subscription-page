@@ -1,20 +1,23 @@
 .modalContent {
-    background: rgba(22, 27, 35, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
 }
-
 .modalHeader {
-    background: transparent;
+  background: transparent;
 }
-
 .modalTitle {
-    font-weight: 600;
-    color: white;
+  font-weight: 600;
+  color: var(--sp-text);
 }
-
-.actionIcon {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+.primaryAction:global(.mantine-Button-root) {
+  color: #0f0a1a;
+  background: var(--sp-accent);
+  height: 46px;
+  padding-inline: 20px;
+  border-radius: 12px;
+}
+@media (max-width: 30em) {
+  .primaryAction:global(.mantine-Button-root) {
+    flex: 1;
+  }
 }

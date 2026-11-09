@@ -1,3 +1,62 @@
-.root:hover {
-    background: rgba(255, 255, 255, 0.04);
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.root {
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+}
+.stepInner {
+  flex-direction: column;
+  gap: 18px;
+}
+.stepNumber {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--sp-border);
+  border-radius: 50%;
+  color: var(--sp-accent-text);
+  font-family: var(--mantine-font-family-monospace);
+  font-size: 12px;
+}
+.root :global(.mantine-Title-root) {
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.3px;
+}
+.root :global(.mantine-Text-root) {
+  color: var(--sp-text);
+  font-size: 13px;
+  line-height: 1.85 !important;
+}
+.root :global(.mantine-Button-root) {
+  font-size: 11px;
+  padding-inline: 12px;
+}
+@media (max-width: 48em) {
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .stepInner {
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+  }
+  .root {
+    border-bottom: 1px solid var(--sp-border);
+    padding-bottom: 24px !important;
+  }
+  .root:last-child {
+    border-bottom: 0;
+    padding-bottom: 0 !important;
+  }
+  .stepNumber {
+    flex-shrink: 0;
+  }
 }

@@ -1,3 +1,4 @@
+import { Card, Group, SimpleGrid, Stack, Text, ThemeIcon, Title } from '@mantine/core'
 import {
     IconAlertCircle,
     IconArrowsUpDown,
@@ -6,16 +7,16 @@ import {
     IconUserScan,
     IconX
 } from '@tabler/icons-react'
-import { Card, Group, SimpleGrid, Stack, Text, ThemeIcon, Title } from '@mantine/core'
 
+import { useTranslation } from '@shared/hooks'
+import { InfoBlockShared } from '@shared/ui/info-block/info-block.shared'
 import {
     formatDate,
     getColorGradientSolid,
     getExpirationTextUtil
 } from '@shared/utils/config-parser'
-import { InfoBlockShared } from '@shared/ui/info-block/info-block.shared'
+
 import { useSubscription } from '@entities/subscription-info-store'
-import { useTranslation } from '@shared/hooks'
 
 interface IProps {
     isMobile: boolean
@@ -34,7 +35,7 @@ export const SubscriptionInfoExpandedWidget = ({ isMobile }: IProps) => {
     } => {
         if (user.userStatus === 'ACTIVE' && user.daysLeft > 0) {
             return {
-                color: 'teal',
+                color: 'green',
                 icon: <IconCheck size={isMobile ? 18 : 22} />,
                 status: t(baseTranslations.active)
             }
@@ -85,7 +86,7 @@ export const SubscriptionInfoExpandedWidget = ({ isMobile }: IProps) => {
 
                         <Stack gap={2} style={{ minWidth: 0, flex: 1 }}>
                             <Title
-                                c="white"
+                                c="var(--sp-text)"
                                 fw={600}
                                 order={5}
                                 style={{

@@ -142,3 +142,21 @@ docker-compose-local.yml
 /backend/.env
 
 /frontend/public/assets/.app-config-v2.json
+
+# Local planning and analysis artifacts
+graphify-out/
+.codebase-memory/
+FRONTEND_STRUCTURE.md
+AGENTS.md
+PLAN.md
+PLANS.md
+ANALYSIS.md
+*_PLAN.md
+*_ANALYSIS.md
+.plans/
+.analysis/
+plans/
+planning/
+analysis/
+.preview/
+.taste-skill/

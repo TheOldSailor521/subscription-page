@@ -1,3 +1,12 @@
+FROM --platform=$BUILDPLATFORM node:24.22-trixie-slim AS frontend-build
+WORKDIR /opt/frontend
+
+COPY frontend/package*.json frontend/.npmrc ./
+RUN npm ci --prefer-offline --no-audit --no-fund
+
+COPY frontend/ .
+RUN npm run start:build
+
 FROM node:24.22-trixie-slim AS backend-build
 WORKDIR /opt/app
 
@@ -9,26 +18,27 @@ RUN npm ci --prefer-offline --no-audit --no-fund
 
 COPY backend/ .
 
-RUN npm run build \
+RUN NODE_ENV=production npm run build \
     && npm run trace
 
 FROM node:24.22-trixie-slim
 WORKDIR /opt/app
 
-LABEL org.opencontainers.image.title="Remnawave Subscription Page"
-LABEL org.opencontainers.image.description="Remnawave Subscription Page"
-LABEL org.opencontainers.image.url="https://github.com/remnawave/subscription-page"
-LABEL org.opencontainers.image.source="https://github.com/remnawave/subscription-page"
-LABEL org.opencontainers.image.vendor="Remnawave"
+LABEL org.opencontainers.image.title="SubPage"
+LABEL org.opencontainers.image.description="Custom Remnawave subscription page with purple light and dark themes"
+LABEL org.opencontainers.image.url="https://github.com/TheOldSailor521/subscription-page"
+LABEL org.opencontainers.image.source="https://github.com/TheOldSailor521/subscription-page"
+LABEL org.opencontainers.image.vendor="TheOldSailor521"
 LABEL org.opencontainers.image.licenses="AGPL-3.0"
-LABEL org.opencontainers.image.documentation="https://docs.rw"
+LABEL org.opencontainers.image.documentation="https://github.com/TheOldSailor521/subscription-page#readme"
 
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 
 COPY --from=backend-build /opt/app/dist ./dist
 
-COPY frontend/dist/ ./frontend/
+COPY --from=frontend-build /opt/frontend/dist/ ./frontend/
+COPY LICENCE ./LICENCE
 COPY backend/ecosystem.config.js ./
 COPY backend/docker-entrypoint.sh ./
 

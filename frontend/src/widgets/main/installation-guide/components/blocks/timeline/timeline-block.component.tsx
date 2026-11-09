@@ -1,7 +1,7 @@
 import { Stack, Text, Timeline } from '@mantine/core'
 
-import { getColorGradientSolid, getLocalizedText } from '@shared/utils/config-parser'
 import { ThemeIconShared } from '@shared/ui'
+import { getColorGradientSolid, getLocalizedText } from '@shared/utils/config-parser'
 
 import { IBlockRendererProps } from '../renderer-block.interface'
 import classes from './timeline-block.module.css'
@@ -22,7 +22,7 @@ export const TimelineBlockRenderer = ({
                 item: classes.timelineItem,
                 itemBullet: classes.timelineItemBullet
             }}
-            color="cyan"
+            color="violet"
             lineWidth={2}
         >
             {blocks.map((block, index) => {
@@ -42,7 +42,7 @@ export const TimelineBlockRenderer = ({
                         key={index}
                         title={
                             <Text
-                                c="white"
+                                c="var(--sp-text)"
                                 dangerouslySetInnerHTML={{
                                     __html: getLocalizedText(block.title, currentLang)
                                 }}

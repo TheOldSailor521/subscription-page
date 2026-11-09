@@ -1,110 +1,92 @@
+.guide {
+  padding: 28px !important;
+}
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
 .appsGrid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: var(--mantine-spacing-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-block: 8px 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--sp-border);
 }
-
 .appButton {
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex: 1 1 auto;
-    padding: 0 48px 0 16px;
-    height: 48px;
-    min-width: 0;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-left: 3px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--mantine-radius-md);
-    cursor: pointer;
-    transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 100px;
+  min-height: 46px;
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid var(--sp-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
 }
-
 .appButton:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-left-color: rgba(255, 255, 255, 0.25);
+  background: var(--sp-tint);
+  transform: translateY(-1px);
 }
-
-.appButton:hover .bgIcon {
-    opacity: 0.3;
+.appButton:active {
+  transform: translateY(1px);
 }
-
 .appButtonActive,
 .appButtonActive:hover {
-    background: linear-gradient(90deg, rgba(34, 211, 238, 0.12) 0%, rgba(34, 211, 238, 0.04) 100%);
-    border-color: rgba(34, 211, 238, 0.2);
-    border-left-color: var(--mantine-color-cyan-5);
-    box-shadow:
-        inset 4px 0 12px -4px rgba(34, 211, 238, 0.3),
-        0 0 12px rgba(34, 211, 238, 0.1);
+  background: var(--sp-tint);
+  border-color: var(--sp-accent);
 }
-
-.appButtonActive .appName {
-    color: var(--mantine-color-cyan-3);
-}
-
-.appButtonActive .bgIcon,
-.appButtonActive:hover .bgIcon {
-    opacity: 0.25;
-}
-
-.bgIcon {
-    position: absolute;
-    right: -12px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 56px;
-    height: 56px;
-    opacity: 0.25;
-    pointer-events: none;
-    transition: all 0.3s ease;
-    mask-image: linear-gradient(to right, transparent 0%, black 40%, black 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%, black 100%);
-}
-
-.bgIcon svg,
-.bgIcon svg path {
-    width: 100%;
-    height: 100%;
-}
-
-.bgIconActive {
-    opacity: 0.25;
-}
-
-.bgIconActive svg,
-.bgIconActive svg path {
-    width: 100%;
-    height: 100%;
-}
-
 .appName {
-    position: relative;
-    z-index: 1;
-    color: rgba(255, 255, 255, 0.85);
-    font-size: var(--mantine-font-size-md);
-    font-weight: 600;
-    white-space: nowrap;
+  color: var(--sp-muted);
+  font-size: 13px;
+  font-weight: 600;
 }
-
+.appButtonActive .appName {
+  color: var(--sp-text);
+}
+.bgIcon {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  color: var(--sp-muted);
+}
+.bgIcon svg {
+  width: 20px;
+  height: 20px;
+}
+.bgIconActive {
+  color: var(--sp-accent-text);
+}
 .featuredBadge {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 8px;
-    height: 8px;
-    display: inline-block;
-    opacity: 1;
-    z-index: 0;
-    border-radius: 50%;
-    background: #efbf04;
-
-    box-shadow: 0 0 6px rgba(239, 191, 4, 0.6);
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--sp-warning);
 }
-
-.appButtonActive .featuredBadge {
-    opacity: 0.8;
-    box-shadow: 0 0 8px rgba(239, 191, 4, 0.4);
+@media (max-width: 30em) {
+  .guide {
+    padding: 20px !important;
+  }
+  .sectionTitle {
+    font-size: 18px;
+  }
+  .appsGrid {
+    gap: 8px;
+  }
+  .appButton {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding-inline: 12px;
+  }
 }

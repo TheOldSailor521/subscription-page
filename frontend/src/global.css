@@ -1,90 +1,29 @@
-html,
-body {
-    min-height: 100vh;
-    background-color: #161b23;
-    background-image:
-        linear-gradient(to right, rgba(128, 128, 128, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(128, 128, 128, 0.05) 1px, transparent 1px);
-    background-size: 60px 60px;
-    background-attachment: fixed;
-    position: relative;
-}
+html { min-height: 100%; background: var(--sp-bg); color-scheme: dark light; scroll-padding-top: 96px; }
+body { min-width: 320px; min-height: 100vh; background: var(--sp-bg); color: var(--sp-text); -webkit-font-smoothing: antialiased; }
+#root { min-height: 100vh; }
+* { box-sizing: border-box; }
+::selection { background: #A855F7; color: #0F0A1A; }
+.header-wrapper { border-bottom: 1px solid var(--sp-border); background: var(--sp-bg); }
+.animated-background { display: none; }
+a, button, input, select { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--sp-accent) !important; outline-offset: 4px; }
+.skip-link { position: fixed; top: 12px; left: 20px; z-index: 1000; padding: 12px 18px; background: var(--sp-surface); color: var(--sp-text); border-radius: 10px; transform: translateY(-160%); }
+.skip-link:focus { transform: none; }
+.mantine-Button-root, .mantine-ActionIcon-root { min-height: 44px; transition: background 150ms ease, border-color 150ms ease, transform 150ms ease; }
+.mantine-Button-root { font-weight: 600; font-size: 13px; }
+.mantine-Button-root[data-variant="filled"] { --button-bg: var(--sp-accent); --button-hover: #B46AF8; --button-color: #0F0A1A; border-color: transparent; }
+.mantine-Button-root[data-variant="light"], .mantine-Button-root[data-variant="outline"] { --button-color: var(--sp-accent-text); --button-bg: var(--sp-tint); --button-hover: var(--sp-border); --button-bd: 1px solid var(--sp-border); }
+.mantine-ActionIcon-root { color: var(--sp-muted); background: var(--sp-surface); border-color: var(--sp-border); }
+.mantine-NativeSelect-input { min-height: 44px; background: var(--sp-bg); border-color: var(--sp-border); color: var(--sp-text); font-size: 13px; }
+.mantine-Modal-content, .mantine-Modal-header, .mantine-Menu-dropdown { background: var(--sp-surface); color: var(--sp-text); border-color: var(--sp-border); }
+.mantine-Menu-item { min-height: 44px; color: var(--sp-text); }
+.mantine-Menu-item:hover { background: var(--sp-tint); }
+.mantine-Title-root { letter-spacing: -0.4px; }
+@media (hover: hover) and (pointer: fine) { .mantine-Button-root:hover, .mantine-ActionIcon-root:hover { transform: translateY(-1px); } }
+.mantine-Button-root:active, .mantine-ActionIcon-root:active { transform: translateY(1px) scale(.985); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 
-#root {
-    height: 100vh;
-}
+.mantine-ActionIcon-root { min-width: 44px; }
+.mantine-Modal-close { min-width: 44px; min-height: 44px; }
 
-.animated-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    z-index: 0;
-    background:
-        radial-gradient(ellipse 60% 40% at 25% 40%, rgba(151, 117, 250, 0.08), transparent 50%),
-        radial-gradient(ellipse 50% 50% at 85% 85%, rgba(34, 211, 238, 0.06), transparent 50%);
-}
-
-.header-wrapper {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    background: rgba(22, 27, 35, 0.8);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-
-    @media (min-width: 768px) {
-        border-radius: 0 0 var(--mantine-radius-lg) var(--mantine-radius-lg);
-    }
-}
-
-.logo-text-highlight {
-    color: var(--mantine-color-cyan-4);
-}
-
-.logo-text-normal {
-    color: white;
-}
-
-.info-card-cyan {
-    background: linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
-    border: 1px solid rgba(34, 211, 238, 0.2);
-}
-
-.info-card-violet {
-    background: linear-gradient(135deg, rgba(151, 117, 250, 0.1) 0%, rgba(132, 94, 247, 0.05) 100%);
-    border: 1px solid rgba(151, 117, 250, 0.2);
-}
-
-.info-card-green {
-    background: linear-gradient(135deg, rgba(64, 192, 87, 0.1) 0%, rgba(55, 178, 77, 0.05) 100%);
-    border: 1px solid rgba(64, 192, 87, 0.2);
-}
-
-.info-card-red {
-    background: linear-gradient(135deg, rgba(250, 82, 82, 0.1) 0%, rgba(224, 49, 49, 0.05) 100%);
-    border: 1px solid rgba(250, 82, 82, 0.2);
-}
-
-.info-card-yellow {
-    background: linear-gradient(135deg, rgba(250, 176, 5, 0.1) 0%, rgba(245, 159, 0, 0.05) 100%);
-    border: 1px solid rgba(250, 176, 5, 0.2);
-}
-
-.info-card-blue {
-    background: linear-gradient(135deg, rgba(34, 139, 230, 0.1) 0%, rgba(28, 126, 214, 0.05) 100%);
-    border: 1px solid rgba(34, 139, 230, 0.2);
-}
-
-.info-card-teal {
-    background: linear-gradient(135deg, rgba(32, 201, 151, 0.1) 0%, rgba(18, 184, 134, 0.05) 100%);
-    border: 1px solid rgba(32, 201, 151, 0.2);
-}
-
-.info-card-orange {
-    background: linear-gradient(135deg, rgba(253, 126, 20, 0.1) 0%, rgba(247, 103, 7, 0.05) 100%);
-    border: 1px solid rgba(253, 126, 20, 0.2);
-}
+.mantine-Button-root { color: var(--sp-accent-text); }

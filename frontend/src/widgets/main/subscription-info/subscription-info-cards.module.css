@@ -1,60 +1,52 @@
 .cardItem {
-    padding: var(--mantine-spacing-sm);
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--mantine-radius-md);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+  padding: 22px 18px;
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 16px;
 }
-
-.iconBlue {
-    background: linear-gradient(135deg, rgba(34, 139, 230, 0.2) 0%, rgba(28, 126, 214, 0.1) 100%);
-    border: 1px solid rgba(34, 139, 230, 0.3);
+.cardItem > :first-child {
+  align-items: flex-start;
 }
-
-.iconCyan {
-    background: linear-gradient(135deg, rgba(34, 211, 238, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%);
-    border: 1px solid rgba(34, 211, 238, 0.3);
+.cardItem :global(.mantine-ThemeIcon-root) {
+  margin-top: 3px;
 }
-
-.iconGreen {
-    background: linear-gradient(135deg, rgba(64, 192, 87, 0.2) 0%, rgba(55, 178, 77, 0.1) 100%);
-    border: 1px solid rgba(64, 192, 87, 0.3);
-}
-
-.iconTeal {
-    background: linear-gradient(135deg, rgba(32, 201, 151, 0.2) 0%, rgba(18, 184, 134, 0.1) 100%);
-    border: 1px solid rgba(32, 201, 151, 0.3);
-}
-
-.iconRed {
-    background: linear-gradient(135deg, rgba(250, 82, 82, 0.2) 0%, rgba(224, 49, 49, 0.1) 100%);
-    border: 1px solid rgba(250, 82, 82, 0.3);
-}
-
-.iconYellow {
-    background: linear-gradient(135deg, rgba(250, 176, 5, 0.2) 0%, rgba(245, 159, 0, 0.1) 100%);
-    border: 1px solid rgba(250, 176, 5, 0.3);
-}
-
-.iconOrange {
-    background: linear-gradient(135deg, rgba(253, 126, 20, 0.2) 0%, rgba(247, 103, 7, 0.1) 100%);
-    border: 1px solid rgba(253, 126, 20, 0.3);
-}
-
+.iconBlue,
+.iconCyan,
+.iconTeal,
+.iconOrange,
+.iconYellow,
 .iconViolet {
-    background: linear-gradient(135deg, rgba(151, 117, 250, 0.2) 0%, rgba(132, 94, 247, 0.1) 100%);
-    border: 1px solid rgba(151, 117, 250, 0.3);
+  color: var(--sp-accent-text);
+  background: var(--sp-tint);
+  border: none;
 }
-
+.iconGreen {
+  color: var(--sp-success);
+  background: color-mix(in srgb, var(--sp-success) 12%, transparent);
+  border: none;
+}
+.iconRed {
+  color: var(--sp-error);
+  background: color-mix(in srgb, var(--sp-error) 12%, transparent);
+  border: none;
+}
 .label {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  font-size: 11px;
+  line-height: 1.6;
+  white-space: nowrap;
+  margin-bottom: 6px;
 }
-
 .value {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  letter-spacing: -0.35px;
+}
+@media (max-width: 30em) {
+  .cardItem {
+    padding: 18px;
+  }
+  .value {
+    font-size: 16px;
+  }
 }

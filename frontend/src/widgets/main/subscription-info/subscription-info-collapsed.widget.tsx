@@ -1,13 +1,4 @@
 import {
-    IconAlertCircle,
-    IconArrowsUpDown,
-    IconCalendar,
-    IconCheck,
-    IconChevronDown,
-    IconUserScan,
-    IconX
-} from '@tabler/icons-react'
-import {
     Card,
     Collapse,
     Group,
@@ -17,17 +8,27 @@ import {
     ThemeIcon,
     UnstyledButton
 } from '@mantine/core'
+import {
+    IconAlertCircle,
+    IconArrowsUpDown,
+    IconCalendar,
+    IconCheck,
+    IconChevronDown,
+    IconUserScan,
+    IconX
+} from '@tabler/icons-react'
 import { useState } from 'react'
 
+import { useTranslation } from '@shared/hooks'
+import { InfoBlockShared } from '@shared/ui/info-block/info-block.shared'
 import {
     formatDate,
     getColorGradientSolid,
     getExpirationTextUtil
 } from '@shared/utils/config-parser'
-import { InfoBlockShared } from '@shared/ui/info-block/info-block.shared'
-import { useSubscription } from '@entities/subscription-info-store'
 import { vibrate } from '@shared/utils/vibrate'
-import { useTranslation } from '@shared/hooks'
+
+import { useSubscription } from '@entities/subscription-info-store'
 
 interface IProps {
     isMobile: boolean
@@ -42,7 +43,7 @@ export const SubscriptionInfoCollapsedWidget = ({ isMobile }: IProps) => {
 
     const getStatusConfig = () => {
         if (user.userStatus === 'ACTIVE' && user.daysLeft > 3) {
-            return { color: 'teal', icon: <IconCheck size={14} /> }
+            return { color: 'green', icon: <IconCheck size={14} /> }
         }
         if (user.userStatus === 'ACTIVE' && user.daysLeft > 0) {
             return { color: 'orange', icon: <IconAlertCircle size={14} /> }
@@ -82,7 +83,7 @@ export const SubscriptionInfoCollapsedWidget = ({ isMobile }: IProps) => {
 
                         <Stack gap={0} style={{ minWidth: 0, flex: 1 }}>
                             <Text
-                                c="white"
+                                c="var(--sp-text)"
                                 fw={600}
                                 size={isMobile ? 'sm' : 'md'}
                                 style={{

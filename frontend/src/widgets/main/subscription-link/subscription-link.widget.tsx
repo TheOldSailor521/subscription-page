@@ -1,21 +1,23 @@
+import { ActionIcon, Button, Group, Image, Stack, Text } from '@mantine/core'
+import { useClipboard } from '@mantine/hooks'
+import { modals } from '@mantine/modals'
+import { notifications } from '@mantine/notifications'
 import {
     IconBrandDiscord,
     IconBrandTelegram,
     IconBrandVk,
     IconCopy,
     IconLink,
+    IconArrowUpRight,
     IconMessageChatbot
 } from '@tabler/icons-react'
-import { ActionIcon, Button, Group, Image, Stack, Text } from '@mantine/core'
-import { notifications } from '@mantine/notifications'
-import { useClipboard } from '@mantine/hooks'
-import { modals } from '@mantine/modals'
 import { renderSVG } from 'uqr'
 
-import { constructSubscriptionUrl } from '@shared/utils/construct-subscription-url'
-import { useSubscription } from '@entities/subscription-info-store'
-import { vibrate } from '@shared/utils/vibrate'
 import { useTranslation } from '@shared/hooks'
+import { constructSubscriptionUrl } from '@shared/utils/construct-subscription-url'
+import { vibrate } from '@shared/utils/vibrate'
+
+import { useSubscription } from '@entities/subscription-info-store'
 
 import classes from './subscription-link.module.css'
 
@@ -25,7 +27,7 @@ interface IProps {
 }
 
 export const SubscriptionLinkWidget = ({ supportUrl, hideGetLink }: IProps) => {
-    const { t, baseTranslations } = useTranslation()
+    const { t, baseTranslations, currentLang } = useTranslation()
     const subscription = useSubscription()
     const clipboard = useClipboard({ timeout: 10000 })
 
@@ -38,7 +40,7 @@ export const SubscriptionLinkWidget = ({ supportUrl, hideGetLink }: IProps) => {
         notifications.show({
             title: t(baseTranslations.linkCopied),
             message: t(baseTranslations.linkCopiedToClipboard),
-            color: 'cyan'
+            color: 'violet'
         })
         clipboard.copy(subscriptionUrl)
     }
@@ -56,10 +58,11 @@ export const SubscriptionLinkWidget = ({ supportUrl, hideGetLink }: IProps) => {
 
         const { icon: Icon, color } = matchedPlatform
             ? matchedPlatform[1]
-            : { icon: IconMessageChatbot, color: 'cyan' }
+            : { icon: IconMessageChatbot, color: 'violet' }
 
         return (
             <ActionIcon
+                aria-label={currentLang === 'ru' ? 'Открыть поддержку' : 'Open support'}
                 c={color}
                 component="a"
                 href={supportUrl}
@@ -67,8 +70,8 @@ export const SubscriptionLinkWidget = ({ supportUrl, hideGetLink }: IProps) => {
                 rel="noopener noreferrer"
                 size="xl"
                 style={{
-                    background: 'rgba(255, 255, 255, 0.02)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                    background: 'var(--sp-surface)',
+                    border: '1px solid var(--sp-border)'
                 }}
                 target="_blank"
                 variant="default"
@@ -82,8 +85,8 @@ export const SubscriptionLinkWidget = ({ supportUrl, hideGetLink }: IProps) => {
         vibrate('tap')
 
         const subscriptionQrCode = renderSVG(subscriptionUrl, {
-            whiteColor: '#161B22',
-            blackColor: '#22d3ee'
+            whiteColor: '#FAF5FF',
+            blackColor: '#581C87'
         })
 
         modals.open({
@@ -100,7 +103,7 @@ export const SubscriptionLinkWidget = ({ supportUrl, hideGetLink }: IProps) => {
                         src={`data:image/svg+xml;utf8,${encodeURIComponent(subscriptionQrCode)}`}
                         style={{ borderRadius: 'var(--mantine-radius-md)' }}
                     />
-                    <Text c="white" fw={600} size="lg" ta="center">
+                    <Text c="var(--sp-text)" fw={600} size="lg" ta="center">
                         {t(baseTranslations.scanQrCode)}
                     </Text>
                     <Text c="dimmed" size="sm" ta="center">
@@ -124,15 +127,17 @@ export const SubscriptionLinkWidget = ({ supportUrl, hideGetLink }: IProps) => {
     return (
         <Group gap="xs" ml="auto" wrap="nowrap">
             {!hideGetLink && (
-                <ActionIcon
-                    className={classes.actionIcon}
+                <Button
+                    leftSection={<IconLink size={18} />}
+                    rightSection={<IconArrowUpRight size={17} />}
+                    className={classes.primaryAction}
                     onClick={handleGetLink}
                     radius="md"
-                    size="xl"
-                    variant="default"
+                    size="md"
+                    variant="filled"
                 >
-                    <IconLink />
-                </ActionIcon>
+                    {t(baseTranslations.getLink)}
+                </Button>
             )}
 
             {supportUrl !== '' && renderSupportLink(supportUrl)}

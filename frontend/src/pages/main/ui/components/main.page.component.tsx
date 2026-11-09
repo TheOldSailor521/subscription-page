@@ -1,6 +1,17 @@
-import { Box, Center, Container, Group, Image, Stack, Title } from '@mantine/core'
+import {
+    ActionIcon,
+    Box,
+    Container,
+    Group,
+    Image,
+    Stack,
+    Text,
+    Title,
+    useComputedColorScheme,
+    useMantineColorScheme
+} from '@mantine/core'
 import { TSubscriptionPagePlatformKey } from '@remnawave/subscription-page-types'
-
+import { IconMoon, IconSun } from '@tabler/icons-react'
 import {
     AccordionBlockRenderer,
     CardsBlockRenderer,
@@ -13,9 +24,13 @@ import {
     SubscriptionLinkWidget,
     TimelineBlockRenderer
 } from '@widgets/main'
-import { useAppConfig, useAppConfigStoreActions, useCurrentLang } from '@entities/app-config-store'
-import { LanguagePicker } from '@shared/ui/language-picker/language-picker.shared'
+
 import { Page, RemnawaveLogo } from '@shared/ui'
+import { LanguagePicker } from '@shared/ui/language-picker/language-picker.shared'
+
+import { useAppConfig, useAppConfigStoreActions, useCurrentLang } from '@entities/app-config-store'
+
+import classes from './main.page.module.css'
 
 interface IMainPageComponentProps {
     isMobile: boolean
@@ -65,55 +80,96 @@ export const MainPageComponent = ({ isMobile, platform }: IMainPageComponentProp
     const SubscriptionInfoBlockRenderer =
         SUBSCRIPTION_INFO_BLOCK_RENDERERS[config.uiConfig.subscriptionInfoBlockType]
 
+    const { setColorScheme } = useMantineColorScheme()
+    const colorScheme = useComputedColorScheme('dark')
+    const ru = currentLang === 'ru'
+
     return (
         <Page>
-            <Box className="header-wrapper" py="md">
-                <Container maw={1200} px={{ base: 'md', sm: 'lg', md: 'xl' }}>
-                    <Group justify="space-between">
-                        <Group gap="sm" style={{ userSelect: 'none' }} wrap="nowrap">
-                            {hasCustomLogo ? (
-                                <Image
-                                    alt="logo"
-                                    fit="contain"
-                                    src={config.brandingSettings.logoUrl}
-                                    style={{
-                                        width: '32px',
-                                        height: '32px',
-                                        flexShrink: 0
-                                    }}
-                                />
-                            ) : (
-                                <RemnawaveLogo c="cyan" size={32} />
-                            )}
-                            <Title
-                                c={hasCustomLogo ? 'white' : 'cyan'}
-                                fw={700}
-                                order={4}
-                                size="lg"
-                            >
+            <a className="skip-link" href="#subscription-content">
+                {ru ? 'К содержимому' : 'Skip to content'}
+            </a>
+            <header className="header-wrapper">
+                <Container className={classes.container}>
+                    <Group justify="space-between" wrap="nowrap" h={80}>
+                        <Group gap={12} wrap="nowrap" className={classes.brand}>
+                            <Box className={classes.brandMark}>
+                                {hasCustomLogo ? (
+                                    <Image
+                                        alt=""
+                                        fit="contain"
+                                        src={config.brandingSettings.logoUrl}
+                                        w={28}
+                                        h={28}
+                                    />
+                                ) : (
+                                    <RemnawaveLogo c="var(--sp-accent)" size={28} />
+                                )}
+                            </Box>
+                            <Text fw={650} size="lg" className={classes.brandName}>
                                 {brandName}
-                            </Title>
+                            </Text>
                         </Group>
-
-                        <SubscriptionLinkWidget
-                            hideGetLink={config.baseSettings.hideGetLinkButton}
-                            supportUrl={config.brandingSettings.supportUrl}
-                        />
+                        <Group gap={8} wrap="nowrap">
+                            <LanguagePicker
+                                currentLang={currentLang}
+                                locales={config.locales}
+                                onLanguageChange={setLanguage}
+                            />
+                            <ActionIcon
+                                aria-label={
+                                    ru
+                                        ? colorScheme === 'dark'
+                                            ? 'Включить светлую тему'
+                                            : 'Включить тёмную тему'
+                                        : colorScheme === 'dark'
+                                          ? 'Switch to light theme'
+                                          : 'Switch to dark theme'
+                                }
+                                aria-pressed={colorScheme === 'light'}
+                                onClick={() =>
+                                    setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')
+                                }
+                                size={44}
+                                variant="default"
+                                radius="md"
+                            >
+                                {colorScheme === 'dark' ? (
+                                    <IconSun size={20} />
+                                ) : (
+                                    <IconMoon size={20} />
+                                )}
+                            </ActionIcon>
+                        </Group>
                     </Group>
                 </Container>
-            </Box>
+            </header>
 
-            <Container
-                maw={1200}
-                px={{ base: 'md', sm: 'lg', md: 'xl' }}
-                py="xl"
-                style={{ position: 'relative', zIndex: 1 }}
-            >
-                <Stack gap="xl">
+            <Container className={classes.container} id="subscription-content" tabIndex={-1}>
+                <section className={classes.intro} aria-labelledby="subscription-title" data-enter>
+                    <div>
+                        <Text className={classes.eyebrow}>
+                            {ru ? 'Личный кабинет' : 'Your account'}
+                        </Text>
+                        <Title id="subscription-title" order={1} className={classes.title}>
+                            {ru ? 'Ваша подписка' : 'Your subscription'}
+                        </Title>
+                        <Text className={classes.description}>
+                            {ru
+                                ? 'Всё для подключения — в одном месте.'
+                                : 'Everything you need to connect, in one place.'}
+                        </Text>
+                    </div>
+                    <SubscriptionLinkWidget
+                        hideGetLink={config.baseSettings.hideGetLinkButton}
+                        supportUrl={config.brandingSettings.supportUrl}
+                    />
+                </section>
+
+                <Stack gap={28} className={classes.content}>
                     {SubscriptionInfoBlockRenderer && (
                         <SubscriptionInfoBlockRenderer isMobile={isMobile} />
                     )}
-
                     {atLeastOnePlatformApp && (
                         <InstallationGuideConnector
                             BlockRenderer={
@@ -124,17 +180,12 @@ export const MainPageComponent = ({ isMobile, platform }: IMainPageComponentProp
                             platform={platform}
                         />
                     )}
-
                     <RawKeysWidget isMobile={isMobile} />
-
-                    <Center>
-                        <LanguagePicker
-                            currentLang={currentLang}
-                            locales={config.locales}
-                            onLanguageChange={setLanguage}
-                        />
-                    </Center>
                 </Stack>
+                <footer className={classes.footer}>
+                    <Text size="xs">{brandName}</Text>
+                    <Text size="xs">{ru ? 'Страница подписки' : 'Subscription page'}</Text>
+                </footer>
             </Container>
         </Page>
     )

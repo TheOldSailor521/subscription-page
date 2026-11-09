@@ -3,15 +3,15 @@
   "version": "8.0.1",
   "private": false,
   "description": "Remnawave Subscription Page",
-  "homepage": "https://github.com/remnawave",
+  "homepage": "https://github.com/TheOldSailor521/subscription-page",
   "bugs": {
-    "url": "https://github.com/remnawave/subscription-page/issues"
+    "url": "https://github.com/TheOldSailor521/subscription-page/issues"
   },
   "license": "AGPL-3.0-only",
   "author": "REMNAWAVE <github.com/remnawave>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/remnawave/subscription-page"
+    "url": "https://github.com/TheOldSailor521/subscription-page.git"
   },
   "type": "commonjs",
   "scripts": {
